@@ -1,0 +1,27 @@
+<div class="col-sm-4 mt-5" style="margin: auto;">
+    <mat-card class="mt-4 mat-elevation-z4 rounded">
+      <mat-card-content class="p-4">
+        <form [formGroup]="orgLogin" (ngSubmit)="Login()">
+          <h2>Organization Login</h2>
+          <mat-form-field class="full-width-input" appearance="outline">
+            <mat-label>Enter mobile number</mat-label>
+            <input matInput formControlName="PhoneNo" required>
+            <!-- <mat-error>
+              Please inform your user name
+            </mat-error> -->
+          </mat-form-field>
+          <mat-form-field class="full-width-input" appearance="outline">
+            <mat-label>Enter password</mat-label>
+            <input matInput type="password" formControlName="Password" required>
+            <!-- <mat-error>
+              Please inform your password
+            </mat-error> -->
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Login</button>
+        </form>
+        <div class="mt-2">
+            Don't have an account <a routerLink="/welcome/org-reg"> Register here?</a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

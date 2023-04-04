@@ -1,0 +1,62 @@
+<form [formGroup]="updateReqBloodForm" (ngSubmit)="updateReqBloodSubmit()">
+    <div class="row">
+    <div class="col-sm-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" [class.is-invalid]="updateReqBloodForm.controls['Name'].invalid && updateReqBloodForm.controls['Name'].touched" placeholder="Enter Name" formControlName="Name">
+        <label for="floatingInput">Name</label>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="Enter Age" formControlName="Age" [class.is-invalid]="updateReqBloodForm.controls['Age'].invalid && updateReqBloodForm.controls['Age'].touched">
+        <label for="floatingInput">Age</label>
+      </div>
+    </div>
+</div>
+    <div class="row">
+<div class="col-sm-6">
+  <div class="form-floating">
+    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="BloodGroup" [class.is-invalid]="updateReqBloodForm.controls['BloodGroup'].invalid && updateReqBloodForm.controls['BloodGroup'].touched">
+      <option *ngFor="let b of bloodGroups" value="{{b}}">{{b}}</option>
+    </select>
+    <label for="floatingSelect">Works with selects</label>
+  </div>
+    </div>
+<div class="col-sm-6">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="Enter Phone number" formControlName="PhoneNo" [class.is-invalid]="updateReqBloodForm.controls['PhoneNo'].invalid && updateReqBloodForm.controls['PhoneNo'].touched">
+    <label for="floatingInput">PhoneNo</label>
+  </div>
+    </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" placeholder="Enter Address" formControlName="Address" [class.is-invalid]="updateReqBloodForm.controls['Address'].invalid && updateReqBloodForm.controls['Address'].touched">
+      <label for="floatingInput">Address</label>
+    </div>
+<div class="row">
+<div class="col-sm-6">
+  <div class="form-floating mb-3">
+    <input type="date" class="form-control" formControlName="Date" [class.is-invalid]="updateReqBloodForm.controls['Date'].invalid && updateReqBloodForm.controls['Date'].touched">
+    <label for="floatingInput">Date</label>
+  </div>
+<!--   
+      <mat-form-field appearance="outline" class="full-width-input">
+        <mat-label>Choose Date</mat-label>
+        <input class="form-control" [matDatepicker]="picker" formControlName="Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+    </div>
+    <div class="col-sm-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="Enter Address" formControlName="RequiredUnits" [class.is-invalid]="updateReqBloodForm.controls['RequiredUnits'].invalid && updateReqBloodForm.controls['RequiredUnits'].touched">
+        <label for="floatingInput">Required Units</label>
+      </div>
+    </div>
+</div>
+<div class="text-center">
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="accent" type="submit">Update</button>
+</div>
+</form>

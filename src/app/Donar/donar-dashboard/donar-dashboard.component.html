@@ -1,0 +1,458 @@
+<nav class="navbar navbar-light" style="background-color: #2E4053;">
+    <!-- Navbar content -->
+  
+<ul class="nav nav-pills" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="pill" href="#home">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#donarList">DonarList</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#bloodBank">BloodBankDetails</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#reqBlood">Request Blood</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#viewReqBlood">View-Request-Blood</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#search">Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#profile" (click)="profileBtn()">Profile</a>
+      </li>
+  </ul>
+  <div class="me-2">
+    <button mat-raised-button color="warn" (click)="donarLogout()">Log-out</button>
+  </div>
+</nav>
+  <div class="tab-content">
+    <!-- Home Starts -->
+<div id="home"  class="container tab-pane active mt-4">
+  <h2>Today Emergency Blood Requirements</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Blood Group</th>
+        <th scope="col">Phone No.</th>
+        <th scope="col">Address</th>
+        <th scope="col">Date</th>
+        <th scope="col">Required Units</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of emergencyBlood;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{r.Name}}</td>
+        <td>{{r.Age}}</td>
+        <td>{{r.BloodGroup}}</td>
+        <td>{{r.PhoneNo}}</td>
+        <td>{{r.Address}}</td>
+        <td>{{r.Date|date:'dd-MM-yyyy'}}</td>
+        <td>{{r.RequiredUnits}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Home Ends -->
+<!-- Donar List tab starts -->
+    <div id="donarList" class="container tab-pane"><br>
+        <h2>Donors List:</h2>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone No.</th>
+                <th scope="col">Email id</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Age</th>
+                <th scope="col">Bllod Group</th>
+                <th scope="col">Last Donation</th>
+                <th scope="col">District</th>
+                <th scope="col">Area</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let d of donors;let i=index" class="align-middle">
+                <td>{{i+1}}</td>
+                <td>{{d.Name}}</td>
+                <td>{{d.PhoneNo}}</td>
+                <td>{{d.Email}}</td>
+                <td>{{d.Gender}}</td>
+                <td>{{d.Age}}</td>
+                <td>{{d.BloodGroup}}</td>
+                <td>{{d.LastDonation|date:'dd-MM-yyyy'}}</td>
+                <td>{{d.District}}</td>
+                <td>{{d.Area}}</td>
+                <td>{{d.Address}}</td>
+              </tr>
+            </tbody>
+          </table>   
+    </div>
+<!-- Donors List tab end -->
+
+<!-- Organization tab start -->
+    <div id="bloodBank" class="container tab-pane fade"><br>
+      <h2>Organaization List</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Type</th>
+            <th scope="col">Organization name</th>
+            <th scope="col">Phone No.</th>
+            <th scope="col">Email id</th>
+            <th scope="col">District</th>
+            <th scope="col">Area</th>
+            <th scope="col">Address</th>
+            <th scope="col">Status</th>
+        
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of allOrgs;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{o.Type}}</td>
+            <td>{{o.OrganisationName}}</td>
+            <td>{{o.PhoneNo}}</td>
+            <td>{{o.Email}}</td>
+            <td>{{o.District}}</td>
+            <td>{{o.Area}}</td>
+            <td>{{o.Address}}</td>
+            <td>{{o.status}}</td>
+          </tr>
+        </tbody>
+      </table> 
+    </div>
+    <!-- Organization List tab end -->
+    <!-- Request Blood start -->
+<div id="reqBlood" class="container tab-pane fade">
+    <div class="card mt-4">
+<h2 class="card-header">Request Blood:</h2>
+<div class="card-body p-4">
+<form [formGroup]="reqBloodForm" (ngSubmit)="reqBloodSubmit()">
+    <div class="row">
+    <div class="col-sm-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" [class.is-invalid]="reqBloodForm.controls['Name'].invalid && reqBloodForm.controls['Name'].touched" placeholder="Enter Name" formControlName="Name">
+        <label for="floatingInput">Name</label>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="Enter Age" formControlName="Age" [class.is-invalid]="reqBloodForm.controls['Age'].invalid && reqBloodForm.controls['Age'].touched">
+        <label for="floatingInput">Age</label>
+      </div>
+    </div>
+</div>
+    <div class="row">
+<div class="col-sm-6">
+  <div class="form-floating">
+    <select class="form-select" id="floatingSelect" aria-label="Floating label select example" formControlName="BloodGroup" [class.is-invalid]="reqBloodForm.controls['BloodGroup'].invalid && reqBloodForm.controls['BloodGroup'].touched">
+      <option *ngFor="let b of bloodGroups" value="{{b}}">{{b}}</option>
+    </select>
+    <label for="floatingSelect">Works with selects</label>
+  </div>
+    </div>
+<div class="col-sm-6">
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" placeholder="Enter Phone number" formControlName="PhoneNo" [class.is-invalid]="reqBloodForm.controls['PhoneNo'].invalid && reqBloodForm.controls['PhoneNo'].touched">
+    <label for="floatingInput">PhoneNo</label>
+  </div>
+    </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" placeholder="Enter Address" formControlName="Address" [class.is-invalid]="reqBloodForm.controls['Address'].invalid && reqBloodForm.controls['Address'].touched">
+      <label for="floatingInput">Address</label>
+    </div>
+<div class="row">
+<div class="col-sm-6">
+  <div class="form-floating mb-3">
+    <input type="date" class="form-control" formControlName="Date" [class.is-invalid]="reqBloodForm.controls['Date'].invalid && reqBloodForm.controls['Date'].touched">
+    <label for="floatingInput">Date</label>
+  </div>
+<!--   
+      <mat-form-field appearance="outline" class="full-width-input">
+        <mat-label>Choose Date</mat-label>
+        <input class="form-control" [matDatepicker]="picker" formControlName="Date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+    </div>
+    <div class="col-sm-6">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="Enter Address" formControlName="RequiredUnits" [class.is-invalid]="reqBloodForm.controls['RequiredUnits'].invalid && reqBloodForm.controls['RequiredUnits'].touched">
+        <label for="floatingInput">Required Units</label>
+      </div>
+    </div>
+</div>
+<div>
+    <button mat-raised-button color="accent" type="submit">Submit</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+    <!-- Request Blood End -->
+    <!-- View blood request tab starts -->
+    <div id="viewReqBlood" class="container tab-pane fade"><br>
+        <h2>View Blood Requests:</h2>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Phone No.</th>
+                <th scope="col">Address</th>
+                <th scope="col">Date</th>
+                <th scope="col">Require Units</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let v of viewBloodReq;let i=index">
+                <td>{{i+1}}</td>
+                <td>{{v.Name}}</td>
+                <td>{{v.Age}}</td>
+                <td>{{v.BloodGroup}}</td>
+                <td>{{v.PhoneNo}}</td>
+                <td>{{v.Address}}</td>
+                <td>{{v.Date|date:'dd-MM-yyyy'}}</td>
+                <td>{{v.RequiredUnits}}</td>
+                <td>
+                  <button mat-button color="primary" (click)="editReq(v)"><mat-icon>edit</mat-icon> </button>
+                  <button mat-button color="warn" (click)="deleteReq(v)"><mat-icon>delete</mat-icon> </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <!-- View blood request tab ends -->
+          <!-- search Tab Starts -->
+<div id="search" class="container tab-pane fade">
+    <div class="card mt-4 ">
+        <h2 class="card-header">Search</h2>
+        <div class="card-body p-4">
+            <form [formGroup]="searchForm" (ngSubmit)="search()">
+            <div class="row">
+                <div class="col-sm-6">
+                    <mat-form-field  class="full-width-input" appearance="outline">
+                        <mat-label>Blood-Group</mat-label>
+                        <mat-select formControlName="BloodGroup">
+                          <mat-option *ngFor="let b of bloodGroups" value="{{b}}">{{b}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                    <mat-form-field  class="full-width-input" appearance="outline">
+                        <mat-label>District</mat-label>
+                        <mat-select formControlName="District">
+                          <mat-option *ngFor="let d of districts" value="{{d}}">{{d}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+            </div>
+          <div>
+            <button mat-raised-button color="accent" type="submit">Search</button>
+          </div>
+    </form>
+</div>
+</div>
+<br>
+<div class="row">
+    <h2>Donars</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+      <th>S.No</th>
+      <th>Name</th>
+      <th>Phone No</th>
+      <th>Email-id</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th>Blood Group</th>
+      <th> Last Donation</th>
+      <th> District</th>
+      <th>Area</th>
+      <th> Address</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of donorRes;let i=index" class="align-middle">
+        <td>{{i+1}}</td>
+        <td>{{x.Name}}</td>
+        <td>{{x.PhoneNo}}</td>
+        <td>{{x.Email}}</td>
+        <td>{{x.Gender}}</td>
+        <td>{{x.Age}}</td>
+        <td>{{x.BloodGroup}}</td>
+        <td>{{x.LastDonation}}</td>
+        <td>{{x.District}}</td>
+        <td>{{x.Area}}</td>
+        <td>{{x.Address}}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+  <br><br>
+  <div class="row">
+    <h2>Organizations</h2>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Phone Number</th>
+          <th>District</th>
+          <th>BloodGroup</th>
+          <th>Units</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of orgResult;let i=index" class="align-middle">
+          <td>{{i+1}}</td>
+          <td>{{o.PhoneNo}}</td>
+          <td>{{o.District}}</td>
+          <td>{{o.bloodGroup}}</td>
+          <td>{{o.units}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+    <!-- search tab ends -->
+    <!-- profile tab starts -->
+<div id="profile" class="container tab-pane fade">
+<div class="card mt-4" style="width: 75% !important;">
+  <div class="card-header"><h2> Profile</h2></div>
+  <div class="card-body ">
+    <form [formGroup]="donarProfile" (ngSubmit)="update()">
+      <div class="row">
+        <div class="col-sm-4">
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Donar name</mat-label>
+                <input matInput required formControlName="Name">
+                <!-- <mat-error>
+                  Please inform your user name
+                </mat-error> -->
+              </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Father name</mat-label>
+                <input matInput required formControlName="FatherName">
+                <!-- <mat-error>
+                  Please inform your user name
+                </mat-error> -->
+              </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput required formControlName="PhoneNo" readonly>
+                <!-- <mat-error>
+                  Please inform your user name
+                </mat-error> -->
+              </mat-form-field>
+        </div>
+
+      </div>
+      
+      <div class="row">
+        <div class="col-sm-8">
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Email id</mat-label>
+                <input matInput required formControlName="Email">
+                <!-- <mat-error>
+                  Please inform your user name
+                </mat-error> -->
+              </mat-form-field>
+        </div>
+
+        <div class="col-sm-4 pt-3" >
+            <mat-label><b> Gender:</b></mat-label> &nbsp;
+            <mat-radio-group aria-label="Select an option" class="mt-2" formControlName="Gender"> 
+                <mat-radio-button value="male">Male</mat-radio-button> &nbsp;
+                <mat-radio-button value="female">Female</mat-radio-button>
+              </mat-radio-group>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Age</mat-label>
+                <input matInput required formControlName="Age">
+                <!-- <mat-error>
+                  Please inform your user name
+                </mat-error> -->
+              </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field  class="full-width-input" appearance="outline">
+                <mat-label>Choose a Blood Group</mat-label>
+                <mat-select formControlName="BloodGroup">
+                  <mat-option *ngFor="let b of bloodGroups" value="{{b}}">{{b}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field appearance="outline" class="full-width-input">
+                <mat-label>Choose Last Donate Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="LastDonation">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+            <mat-form-field  class="full-width-input" appearance="outline">
+                <mat-label>District</mat-label>
+                <mat-select formControlName="District">
+                  <mat-option *ngFor="let d of districts" value="{{d}}">{{d}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Area</mat-label>
+                <input matInput required formControlName="Area">
+                <!-- <mat-error>
+                  Please inform your user name
+                </mat-error> -->
+              </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>Address</mat-label>
+                <input matInput required formControlName="Address">
+                <!-- <mat-error>
+                  Please inform your user name
+                </mat-error> -->
+              </mat-form-field>
+        </div>
+      </div>
+     
+      <button mat-raised-button color="accent" type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+</div>
+    <!-- profile tab ends -->
+    <!-- change password tab starts -->
+  </div>

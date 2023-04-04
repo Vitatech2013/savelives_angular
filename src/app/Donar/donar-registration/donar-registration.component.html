@@ -1,0 +1,127 @@
+<div class="col-sm-8" style="margin: auto;">
+    <mat-card class="mt-5 mat-elevation-z4 rounded">
+      <mat-card-content>
+        <form [formGroup]="donarReg" (ngSubmit)="signup()">
+          <h2>Donar Registration</h2>
+          <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Donar name</mat-label>
+                    <input matInput required formControlName="Name">
+                    <!-- <mat-error>
+                      Please inform your user name
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Father name</mat-label>
+                    <input matInput required formControlName="FatherName">
+                    <!-- <mat-error>
+                      Please inform your user name
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput required formControlName="PhoneNo">
+                    <!-- <mat-error>
+                      Please inform your user name
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Email id</mat-label>
+                    <input matInput required formControlName="Email">
+                    <!-- <mat-error>
+                      Please inform your user name
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Enter password</mat-label>
+                    <input matInput type="password" required formControlName="Password">
+                    <!-- <mat-error>
+                      Please inform your password
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4 pt-3" >
+                <mat-label><b> Gender:</b></mat-label> &nbsp;
+                <mat-radio-group aria-label="Select an option" class="mt-2" formControlName="Gender"> 
+                    <mat-radio-button value="male">Male</mat-radio-button> &nbsp;
+                    <mat-radio-button value="female">Female</mat-radio-button>
+                  </mat-radio-group>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Age</mat-label>
+                    <input matInput required formControlName="Age">
+                    <!-- <mat-error>
+                      Please inform your user name
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field  class="full-width-input" appearance="outline">
+                    <mat-label>Choose a Blood Group</mat-label>
+                    <mat-select formControlName="BloodGroup">
+                      <mat-option *ngFor="let b of bloodGroups" value="{{b}}">{{b}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Choose Last Donate Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="LastDonation">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+                <mat-form-field  class="full-width-input" appearance="outline">
+                    <mat-label>District</mat-label>
+                    <mat-select formControlName="District">
+                      <mat-option *ngFor="let d of districts" value="{{d}}">{{d}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Area</mat-label>
+                    <input matInput required formControlName="Area">
+                    <!-- <mat-error>
+                      Please inform your user name
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+                <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <input matInput required formControlName="Address">
+                    <!-- <mat-error>
+                      Please inform your user name
+                    </mat-error> -->
+                  </mat-form-field>
+            </div>
+          </div>
+         
+          <button mat-raised-button color="primary" type="submit">Sign-up</button>
+        </form>
+        <div class="mt-3 mb-2">
+            already have an account <a routerLink="/welcome/donar-login"><b> login here?</b></a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>

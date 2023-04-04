@@ -1,0 +1,414 @@
+<nav class="navbar navbar-light" style="background-color: #2E4053;">
+    <!-- Navbar content -->
+  
+<ul class="nav nav-pills" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="pill" href="#home">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#addAvail">Add-Availabilities</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#viewAvail">View-Availabilities</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#donorList">Donor-List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#search">Search</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#orgList">Organisation-List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#viewBloodReq">View-blood-request</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#profile" (click)="profileShow()">Profile</a>
+      </li>
+  </ul>
+  <div class="me-2">
+    <button mat-raised-button color="warn" (click)="orgLogout()">Log-out</button>
+  </div>
+</nav>
+  <div class="tab-content">
+
+<!-- Home tab starts -->
+<div id="home" class="container tab-pane active mt-4">
+  <h2>Today Emergency Blood Requirements</h2>
+  <div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Blood Group</th>
+        <th scope="col">Phone No.</th>
+        <th scope="col">Address</th>
+        <th scope="col">Date</th>
+        <th scope="col">Required Units</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of emergencyBlood;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{r.Name}}</td>
+        <td>{{r.Age}}</td>
+        <td>{{r.BloodGroup}}</td>
+        <td>{{r.PhoneNo}}</td>
+        <td>{{r.Address}}</td>
+        <td>{{r.Date|date:'dd-MM-yyyy'}}</td>
+        <td>{{r.RequiredUnits}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<!-- Home tab end -->
+<!-- Add Availabilities Starts -->
+<div id="addAvail" class="container tab-pane fade"> 
+    <div class="card mt-4">
+        <h2 class="card-header">Add Avalabilities</h2>
+        <div class="card-body">
+            <form [formGroup]="addAvailable" (ngSubmit)="addAvailabel()">
+            <mat-form-field  class="full-width-input" appearance="outline">
+                <mat-label>Blood-Group</mat-label>
+                <mat-select formControlName="bloodGroup">
+                  <mat-option *ngFor="let b of bloodGroups" value="{{b}}">{{b}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="form-floating mb-3 full-width-input m-auto">
+                <input type="text" class="form-control"  id="floatingInput" placeholder="Enter Address" formControlName="units" [class.is-invalid]="addAvailable.controls['units'].invalid && addAvailable.controls['units'].touched">
+                <label for="floatingInput"> Units</label>
+              </div>
+              <div>
+                <button mat-raised-button color="accent" type="submit">Add</button>
+              </div>
+            </form>
+        </div>
+      </div>
+</div>
+<!-- Add Availabilities Ends -->
+<!-- View Availablities starts -->
+    <div id="viewAvail" class="container tab-pane fade"><br>
+        <h2>View Available List:</h2>
+        <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Phone No.</th>
+                <th scope="col">District</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Units</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let b of showAvailable; let i=index" class="align-middle">
+                <td>{{i+1}}</td>
+                <td>{{b.PhoneNo}}</td>
+                <td>{{b.District}}</td>
+                <td>{{b.bloodGroup}}</td>
+                <td>{{b.units}}</td>
+                <td>
+                  <button mat-button color="primary" (click)="editAvaiBlood(b)"><mat-icon>edit</mat-icon></button>
+                  <button mat-button color="warn"><mat-icon (click)="deletaAailBlood(b)">delete</mat-icon></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>  
+    </div>
+<!-- View Availabilities ends -->
+
+<!-- Donor List tab start -->
+    <div id="donorList" class="container tab-pane fade"><br>
+      <h2>Donors List</h2>
+      <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone No.</th>
+            <th scope="col">Email id</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Age</th>
+            <th scope="col">Blood Group</th>
+            <th scope="col">Last Donation</th>
+            <th scope="col">District</th>
+            <th scope="col">Area</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of donorsList;let i=index" class="align-middle">
+            <td>{{i+1}}</td>
+            <td>{{d.Name}}</td>
+            <td>{{d.PhoneNo}}</td>
+            <td>{{d.Email}}</td>
+            <td>{{d.Gender}}</td>
+            <td>{{d.Age}}</td>
+            <td>{{d.BloodGroup}}</td>
+            <td>{{d.LastDonation|date:'dd-MM-yyyy'}}</td>
+            <td>{{d.District}}</td>
+            <td>{{d.Area}}</td>
+            <td>{{d.Address}}</td>
+          </tr>
+        </tbody>
+      </table>  
+    </div>
+    </div>
+    <!-- Donor List tab end -->
+    <!-- search Tab Starts -->
+<div id="search" class="container tab-pane fade">
+    <div class="card mt-4">
+        <h2 class="card-header">Search</h2>
+        <div class="card-body">
+    <form [formGroup]="searchForm" (ngSubmit)="search()">
+        <mat-form-field  class="full-width-input" appearance="outline">
+            <mat-label>Blood-Group</mat-label>
+            <mat-select formControlName="BloodGroup">
+              <mat-option *ngFor="let b of bloodGroups" value="{{b}}">{{b}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field  class="full-width-input" appearance="outline">
+            <mat-label>District</mat-label>
+            <mat-select formControlName="District">
+              <mat-option *ngFor="let d of districts" value="{{d}}">{{d}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="accent" type="submit">Search</button>
+          </div>
+    </form>
+</div>
+</div>
+<br>
+<div class="row">
+    <h2>Donars</h2>
+    <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+      <th>S.No</th>
+      <th>Name</th>
+      <th>Phone No</th>
+      <th>Email-id</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th>Blood Group</th>
+      <th> Last Donation</th>
+      <th> District</th>
+      <th>Area</th>
+      <th> Address</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let x of donorRes;let i=index" class="align-middle">
+        <td>{{i+1}}</td>
+        <td>{{x.Name}}</td>
+        <td>{{x.PhoneNo}}</td>
+        <td>{{x.Email}}</td>
+        <td>{{x.Gender}}</td>
+        <td>{{x.Age}}</td>
+        <td>{{x.BloodGroup}}</td>
+        <td>{{x.LastDonation}}</td>
+        <td>{{x.District}}</td>
+        <td>{{x.Area}}</td>
+        <td>{{x.Address}}</td>
+      </tr>
+    </tbody>
+    </table>
+  </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <h2>Organizations</h2>
+    <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Phone Number</th>
+          <th>District</th>
+          <th>BloodGroup</th>
+          <th>Units</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let o of orgResult;let i=index" class="align-middle">
+          <td>{{i+1}}</td>
+          <td>{{o.PhoneNo}}</td>
+          <td>{{o.District}}</td>
+          <td>{{o.bloodGroup}}</td>
+          <td>{{o.units}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</div>
+    <!-- search tab ends -->
+    <!-- User Tab starts -->
+
+
+    <!-- User tab ends -->
+    <div id="orgList" class="container tab-pane fade"><br>
+      <h2>Organization Deatails:</h2>
+      <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Type</th>
+            <th scope="col">Organization name</th>
+            <th scope="col">Phone No.</th>
+            <th scope="col">Email id</th>
+            <th scope="col">District</th>
+            <th scope="col">Area</th>
+            <th scope="col">Address</th>
+            <th scope="col">Status</th>
+        
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let o of allOrgs;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{o.Type}}</td>
+            <td>{{o.OrganisationName}}</td>
+            <td>{{o.PhoneNo}}</td>
+            <td>{{o.Email}}</td>
+            <td>{{o.District}}</td>
+            <td>{{o.Area}}</td>
+            <td>{{o.Address}}</td>
+            <td>{{o.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    <!-- User Tab end -->
+    <!-- View blood request tab starts -->
+    <div id="viewBloodReq" class="container tab-pane fade"><br>
+        <h2>View Blood Requests:</h2>
+        <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Phone No.</th>
+                <th scope="col">Adress</th>
+                <th scope="col">Date</th>
+                <th scope="col">Required Units</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r of reqBlood;let i=index">
+                <td>{{i+1}}</td>
+                <td>{{r.Name}}</td>
+                <td>{{r.Age}}</td>
+                <td>{{r.BloodGroup}}</td>
+                <td>{{r.PhoneNo}}</td>
+                <td>{{r.Address}}</td>
+                <td>{{r.Date|date:'dd-MM-yyyy'}}</td>
+                <td>{{r.RequiredUnits}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- View blood request tab ends -->
+      <!-- profile tab starts -->
+      <div id="profile" class="container tab-pane fade">
+        <div class="card" style="width:70%">
+          <div class="card-header">
+            <h2> Update Organisation Details</h2>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="orgUpdate" (ngSubmit)="updateOrg()">
+              
+              <div class="row">
+                <div class="col-sm-4">
+                    <mat-form-field  class="full-width-input" appearance="outline">
+                        <mat-label>Organization Type</mat-label>
+                        <mat-select formControlName="Type">
+                          <mat-option value="bloodBank">Blood Bank</mat-option>
+                          <mat-option value="hospital">hospital</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field class="full-width-input" appearance="outline">
+                        <mat-label>Organization name</mat-label>
+                        <input matInput required formControlName="OrganisationName">
+                        <!-- <mat-error>
+                          Please inform your user name
+                        </mat-error> -->
+                      </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field class="full-width-input" appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput required formControlName="PhoneNo" readonly>
+                        <!-- <mat-error>
+                          Please inform your user name
+                        </mat-error> -->
+                      </mat-form-field>
+                </div>
+    
+              </div>
+              
+              <div class="row justify-content-center">
+                <div class="col-sm-4">
+                    <mat-form-field class="full-width-input" appearance="outline">
+                        <mat-label>Email id</mat-label>
+                        <input matInput required formControlName="Email">
+                        <!-- <mat-error>
+                          Please inform your user name
+                        </mat-error> -->
+                      </mat-form-field>
+                </div>
+                
+                <div class="col-sm-4" >
+                    <mat-form-field  class="full-width-input" appearance="outline">
+                        <mat-label>District</mat-label>
+                        <mat-select formControlName="District">
+                          <mat-option *ngFor="let d of districts" value="{{d}}">{{d}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-sm-4">
+                    <mat-form-field class="full-width-input" appearance="outline">
+                        <mat-label>Area</mat-label>
+                        <input matInput required formControlName="Area">
+                        <!-- <mat-error>
+                          Please inform your user name
+                        </mat-error> -->
+                      </mat-form-field>
+                </div>
+                <div class="col-sm-4">
+                    <mat-form-field class="full-width-input" appearance="outline">
+                        <mat-label>Address</mat-label>
+                        <input matInput required formControlName="Address">
+                        <!-- <mat-error>
+                          Please inform your user name
+                        </mat-error> -->
+                      </mat-form-field>
+                </div>
+              </div>
+             
+              <button mat-raised-button color="accent" type="submit">Update</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- profile tab ends -->
+  </div>

@@ -1,0 +1,196 @@
+<nav class="navbar navbar-light" style="background-color: #2E4053;">
+    <!-- Navbar content -->
+  
+<ul class="nav nav-pills" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-bs-toggle="pill" href="#home">Home</a>
+  </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#unapprove">UnApproved List</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#approveList">Approve List</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="pill" href="#User">User</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="pill" href="#ViewBloodReq">View blood request</a>
+      </li>
+  </ul>
+  <div class="me-2">
+    <button mat-raised-button color="warn" (click)="adminLogout()">Log-out</button>
+  </div>
+</nav>
+  <div class="tab-content">
+<!-- home tab starts -->
+<div id="home" class="container tab-pane active mt-4">
+  <h2>Today Emergency Blood Requirements</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">S.No</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Blood Group</th>
+        <th scope="col">Phone No.</th>
+        <th scope="col">Address</th>
+        <th scope="col">Date</th>
+        <th scope="col">Required Units</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of emergencyBlood;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{r.Name}}</td>
+        <td>{{r.Age}}</td>
+        <td>{{r.BloodGroup}}</td>
+        <td>{{r.PhoneNo}}</td>
+        <td>{{r.Address}}</td>
+        <td>{{r.Date|date:'dd-MM-yyyy'}}</td>
+        <td>{{r.RequiredUnits}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- home tab ends -->
+<!-- Approove tab starts -->
+    <div id="unapprove" class="container tab-pane fade mt-2"><br>
+        <h2>Unapproved List:</h2>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Type</th>
+                <th scope="col">Organization name</th>
+                <th scope="col">Phone No.</th>
+                <th scope="col">Email id</th>
+                <th scope="col">District</th>
+                <th scope="col">Area</th>
+                <th scope="col">Address</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let u of unAprovalList;let i=index" class="align-middle">
+                <td>{{i+1}}</td>
+                <td>{{u.Type}}</td>
+                <td>{{u.OrganisationName}}</td>
+                <td>{{u.PhoneNo}}</td>
+                <td>{{u.Email}}</td>
+                <td>{{u.District}}</td>
+                <td>{{u.Area}}</td>
+                <td>{{u.Address}}</td>
+                <td>{{u.status}}</td>
+                <td>
+                  <button mat-stroked-button color="primary" (click)="changeApprove(u._id)">Approve</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>  
+    </div>
+<!-- Approove tab ende -->
+
+<!-- Already Aprooved tab start -->
+    <div id="approveList" class="container tab-pane fade"><br>
+      <h2>Approved List</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Type</th>
+            <th scope="col">Organization name</th>
+            <th scope="col">Phone No.</th>
+            <th scope="col">Email id</th>
+            <th scope="col">District</th>
+            <th scope="col">Area</th>
+            <th scope="col">Address</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let a of approvedList;let i=index" class="align-middle">
+            <td>{{i+1}}</td>
+            <td>{{a.Type}}</td>
+            <td>{{a.OrganisationName}}</td>
+            <td>{{a.PhoneNo}}</td>
+            <td>{{a.Email}}</td>
+            <td>{{a.District}}</td>
+            <td>{{a.Area}}</td>
+            <td>{{a.Address}}</td>
+            <td>{{a.status}}</td>
+          </tr>
+        </tbody>
+      </table>  
+    </div>
+    <!-- Already Aprooved tab end -->
+    <!-- User Tab starts -->
+    <div id="User" class="container tab-pane fade"><br>
+      <h2>Users:</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone No.</th>
+            <th scope="col">Email id</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Age</th>
+            <th scope="col">Blood Group</th>
+            <th scope="col">Last Donation</th>
+            <th scope="col">District</th>
+            <th scope="col">Area</th>
+            <th scope="col">Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of users; let i=index" class="align-middle">
+            <td>{{i+1}}</td>
+            <td>{{u.Name}}</td>
+            <td>{{u.PhoneNo}}</td>
+            <td>{{u.Email}}</td>
+            <td>{{u.Gender}}</td>
+            <td>{{u.Age}}</td>
+            <td>{{u.BloodGroup}}</td>
+            <td>{{u.LastDonation | date:'dd-MM-yyyy'}}</td>
+            <td>{{u.District}}</td>
+            <td>{{u.Area}}</td>
+            <td>{{u.Address}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- User Tab end -->
+    <!-- View blood request tab starts -->
+    <div id="ViewBloodReq" class="container tab-pane fade"><br>
+        <h2>View Blood Requests:</h2>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Blood Group</th>
+                <th scope="col">Phone No.</th>
+                <th scope="col">Address</th>
+                <th scope="col">Date</th>
+                <th scope="col">Required Units</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let r of viewReqBlood;let i=index">
+                <td>{{i+1}}</td>
+                <td>{{r.Name}}</td>
+                <td>{{r.Age}}</td>
+                <td>{{r.BloodGroup}}</td>
+                <td>{{r.PhoneNo}}</td>
+                <td>{{r.Address}}</td>
+                <td>{{r.Date|date:'dd-MM-yyyy'}}</td>
+                <td>{{r.RequiredUnits}}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      <!-- View blood request tab ends -->
+  </div>
